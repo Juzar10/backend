@@ -1,4 +1,4 @@
-const NumberOfItemPerPage = require("../../constant/generalVariable");
+const { NumberOfItemPerPage } = require("../../constant/generalVariable");
 const { genreList } = require("../../constant/generalVariable");
 const { popularBooksDB, popularBookGenreDB, searchBooksDB, autoCompleteBooksDB, booksDetailDB } = require("../../Data/books/booksDataAccess");
 const ErrorHandler = require("../../util/errorHandler");
@@ -49,8 +49,9 @@ const getSearchBooks = async (searchTerm, page) => {
 const getAutoCompleteBooks = async (searchTerm) => {
     try {
         //Handing Emply searchTerm returns a emply array handling that on frontend 
-        if (typeof searchTerm === 'undefined') {
-            searchTerm = " "
+
+        if ((typeof searchTerm === 'undefined') || searchTerm.length === 0) {
+            throw new ErrorHandler("searchTerm Empty", 500)
         }
         const data = await autoCompleteBooksDB(searchTerm)
         return data

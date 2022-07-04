@@ -39,7 +39,6 @@ const PopularBookGenre = catchAsyncError(async (req, res, next) => {
 
 const autoCompleteBooks = catchAsyncError(async (req, res) => {
     let searchTerm = req.query.search
-
     const data = await getAutoCompleteBooks(searchTerm)
 
     res.status(200).json({
