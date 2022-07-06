@@ -28,6 +28,16 @@ const popularBookGenreDB = async (genre) => {
     }
 };
 
+const multipleBooksDB = async (Multiplelist) => {
+    try {
+        const data = await Books.find({ _id: { $in: Multiplelist } })
+
+        return data;
+    } catch {
+        throw error
+    }
+}
+
 const searchBooksDB = async (searchTerm, skipPage) => {
     try {
         const data = await Books.aggregate([
@@ -121,6 +131,7 @@ const booksDetailDB = async (id) => {
     try {
         const data = await Books.findById(id)
 
+
         return data
     } catch (error) {
         throw error
@@ -132,5 +143,6 @@ module.exports = {
     popularBooksDB,
     popularBookGenreDB,
     searchBooksDB,
-    booksDetailDB
+    booksDetailDB,
+    multipleBooksDB
 };

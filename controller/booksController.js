@@ -1,5 +1,5 @@
 const catchAsyncError = require("../middleware/catchAsyncError")
-const { getPopularBooks, getPopularBooksGenre, getSearchBooks, getAutoCompleteBooks, getBooksDetail } = require("../service/books/booksService")
+const { getPopularBooks, getPopularBooksGenre, getSearchBooks, getAutoCompleteBooks, getBooksDetail, getMultipleBooksById } = require("../service/books/booksService")
 
 
 const searchBooks = catchAsyncError(async (req, res) => {
@@ -60,5 +60,15 @@ const detailBook = catchAsyncError(async (req, res) => {
 
 })
 
+const multipleBooks = catchAsyncError(async (req, res) => {
+    const itemsList = req.body.itemsList
 
-module.exports = { popularBooks, PopularBookGenre, searchBooks, autoCompleteBooks, detailBook }
+    const data = await getMultipleBooksById(itemsList)
+
+    res.status(200).json({
+        message: "success",
+        data: data
+    })
+})
+
+module.exports = { popularBooks, PopularBookGenre, searchBooks, autoCompleteBooks, detailBook, multipleBooks }

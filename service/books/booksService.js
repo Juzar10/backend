@@ -1,6 +1,6 @@
 const { NumberOfItemPerPage } = require("../../constant/generalVariable");
 const { genreList } = require("../../constant/generalVariable");
-const { popularBooksDB, popularBookGenreDB, searchBooksDB, autoCompleteBooksDB, booksDetailDB } = require("../../Data/books/booksDataAccess");
+const { popularBooksDB, popularBookGenreDB, searchBooksDB, autoCompleteBooksDB, booksDetailDB, multipleBooksDB } = require("../../Data/books/booksDataAccess");
 const ErrorHandler = require("../../util/errorHandler");
 
 const getPopularBooks = async () => {
@@ -25,6 +25,16 @@ const getPopularBooksGenre = async (genre) => {
     } catch (error) {
         throw error
     }
+}
+
+const getMultipleBooksById = async (itemsList) => {
+    try {
+
+        const data = await multipleBooksDB(itemsList)
+
+        return data
+
+    } catch { }
 }
 
 const getSearchBooks = async (searchTerm, page) => {
@@ -72,4 +82,4 @@ const getBooksDetail = async (id) => {
     }
 }
 
-module.exports = { getPopularBooks, getPopularBooksGenre, getSearchBooks, getAutoCompleteBooks, getBooksDetail }
+module.exports = { getPopularBooks, getPopularBooksGenre, getSearchBooks, getAutoCompleteBooks, getBooksDetail, getMultipleBooksById }

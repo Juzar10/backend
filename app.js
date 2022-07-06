@@ -13,7 +13,7 @@ const user = require("./routes/userRoutes")
 
 
 app.use("/api/v1", books)
-// app.use("/api/v1", user)
+app.use("/api/v1", user)
 
 app.use(errorMiddleware)
 
