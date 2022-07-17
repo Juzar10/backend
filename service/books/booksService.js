@@ -13,14 +13,25 @@ const getPopularBooks = async () => {
 }
 
 //Incomplete Code for this
-const getPopularBooksGenre = async (genre) => {
+const getPopularBooksGenre = async (genre, page) => {
     try {
 
         if (!genreList.includes(genre)) {
             throw new ErrorHandler("genre does not exist", 404)
         }
 
-        const data = await popularBookGenreDB(genre)
+        if (typeof searchTerm == 'undefined') {
+            searchTerm = " "
+        }
+        if (typeof page == "undefined") {
+            page = 0
+        }
+
+        page = page - 1
+
+        skipPage = page * NumberOfItemPerPage
+
+        const data = await popularBookGenreDB(genre, skipPage)
         return data
     } catch (error) {
         throw error
@@ -40,12 +51,14 @@ const getMultipleBooksById = async (itemsList) => {
 const getSearchBooks = async (searchTerm, page) => {
     try {
         //Handing Emply searchTerm returns a emply array handling that on frontend 
-        if (typeof searchTerm === 'undefined') {
+        if (typeof searchTerm == 'undefined') {
             searchTerm = " "
         }
-        if (typeof page === "undefined") {
+        if (typeof page == "undefined") {
             page = 0
         }
+
+        page = page - 1
 
         skipPage = page * NumberOfItemPerPage
 

@@ -3,6 +3,7 @@ const catchAsyncError = require("../middleware/catchAsyncError")
 
 const registerUser = catchAsyncError(async (req, res) => {
     const { name, password } = req.body
+    console.log(name, password)
     const user = await User.create({
         name, password,
 

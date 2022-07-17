@@ -24,11 +24,13 @@ const popularBooks = catchAsyncError(async (req, res) => {
     })
 })
 
-const PopularBookGenre = catchAsyncError(async (req, res, next) => {
+const PopularBookGenre = catchAsyncError(async (req, res) => {
 
     const genre = req.params.genre
+    let page = req.query.page
 
-    const data = await getPopularBooksGenre(genre)
+
+    const data = await getPopularBooksGenre(genre, page)
 
     res.status(200).json({
         message: "success",

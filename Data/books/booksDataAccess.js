@@ -16,10 +16,24 @@ const popularBookGenreDB = async (genre) => {
         // const data = await Books.find({ 'genres': { '$all': [genre] } }).sort({ bbeScore: -1 }).limit(2)
         const data = await Books.aggregate([
             { $match: { genres: { $in: [genre] } } },
-            { $limit: 5 },
             {
                 $sort: { bbeScore: -1 },
             },
+            {
+                $project: {
+                    title: 1,
+                    author: 1,
+                    coverImg: 1,
+                    price: 1,
+                    score: { $meta: "searchScore" },
+                },
+            },
+            {
+                $facet: {
+                    metadata: [{ $count: 'total' }],
+                    data: [{ $skip: skipPage }, { $limit: NumberOfItemPerPage }]
+                }
+            }
 
         ])
         return data;
