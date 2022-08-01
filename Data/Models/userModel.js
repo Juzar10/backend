@@ -1,9 +1,15 @@
 const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
-    name: {
+    email: {
         type: String,
-        required: [true, "Please Enter your name"],
+        required: [true, "Please Enter your email"],
+        maxlength: [30, "email cannot exceed 30"],
+        minlength: [4, "email should have more than 5 characters"]
+    },
+    username: {
+        type: String,
+        required: [true, "Please Enter your username"],
         maxlength: [30, "Name cannot exceed 30"],
         minlength: [4, "Name should have more than 5 characters"]
     },
