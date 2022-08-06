@@ -22,8 +22,7 @@ const loginUser = catchAsyncError(async (req, res, next) => {
     if (!name || !password) {
         return next(new ErrorHandler("Provide Email Id or password", 400))
     }
-
-    const user = await User.findOne({ name }).select("+password");
+    const user = await User.findOne({ email: name }).select("+password");
 
     if (!user) {
         return next(new ErrorHandler("Invalid User Id or Password", 401))
@@ -31,8 +30,9 @@ const loginUser = catchAsyncError(async (req, res, next) => {
 
     const isPasswordMatched = user.password === password
 
+
     if (!isPasswordMatched) {
-        return next(new ErrorHandler("Invalid User Id or Password", 401))
+        return next(new ErrorHandler("Invalid  Password", 401))
     }
 
     res.status(200).json({
