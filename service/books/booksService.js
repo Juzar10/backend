@@ -54,14 +54,14 @@ const getSearchBooks = async (searchTerm, page) => {
         if (typeof searchTerm == 'undefined') {
             searchTerm = " "
         }
-        if (typeof page == "undefined") {
+        if (typeof page == 'undefined') {
             page = 0
         }
 
-        page = page - 1
+        page != 0 ? page = page - 1 : page;
 
         skipPage = page * NumberOfItemPerPage
-
+        console.log(skipPage)
         const data = await searchBooksDB(searchTerm, skipPage)
         return data
     } catch (error) {
